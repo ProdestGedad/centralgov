@@ -6,6 +6,9 @@
 <form method="post" enctype="multipart/form-data" class="bg-white p-6 shadow rounded">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Salvar</button>
+    <button type="submit"
+        class="inline-flex items-center bg-green-500 hover:bg-green-600 text-blue px-4 py-2 rounded">
+  <i class="fas fa-save mr-2"></i> Salvar
+  </button>
 </form>
 {% endblock %}

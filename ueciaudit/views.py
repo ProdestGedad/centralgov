@@ -53,8 +53,8 @@ class NormaCreateView(PageMixin, generic.CreateView):
     form_class    = NormaForm
     template_name = 'ueciaudit/norma_form.html'
     success_url   = reverse_lazy('ueciaudit:norma_list')
-    page_title       = 'Nova Norma'
-    page_description = 'Cadastre uma nova norma'
+    page_title       = ''
+    page_description = ''
     breadcrumb       = [
         ('Início', 'ueciaudit:dashboard'),
         ('Normas', 'ueciaudit:norma_list'),
@@ -65,8 +65,8 @@ class NormaUpdateView(PageMixin, generic.UpdateView):
     form_class    = NormaForm
     template_name = 'ueciaudit/norma_form.html'
     success_url   = reverse_lazy('ueciaudit:norma_list')
-    page_title       = 'Editar Norma'
-    page_description = 'Atualize os dados da norma'
+    page_title       = ''
+    page_description = ''
     breadcrumb       = [
         ('Início', 'ueciaudit:dashboard'),
         ('Normas', 'ueciaudit:norma_list'),
@@ -76,8 +76,8 @@ class NormaDeleteView(PageMixin, generic.DeleteView):
     model         = Norma
     template_name = 'ueciaudit/norma_confirm_delete.html'
     success_url   = reverse_lazy('ueciaudit:norma_list')
-    page_title       = 'Excluir Norma'
-    page_description = 'Confirme a exclusão da norma'
+    page_title       = ''
+    page_description = ''
     breadcrumb       = [
         ('Início', 'ueciaudit:dashboard'),
         ('Normas', 'ueciaudit:norma_list'),
