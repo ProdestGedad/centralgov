@@ -1,0 +1,123 @@
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.decorators import method_decorator
+
+from main.genericviews import DeferResolveUrl, GenericDataTable, GenericEditv2, GenericRecordView
+from main.minio import MinioRelatedModelFiles
+from main.permissions import check_roles
+
+from .forms import NormaForm, UploadPDFForm
+from .models import Norma
+
+ADMINS_DO_MODULO = set(["UECI", "Admin"])
+
+
+class NormaLView(GenericDataTable):
+    TITLE = "Normas da UECI"
+    DESCRIPTION = "Listagem de Normas da UECI"
+    QUERYSET = Norma.objects.all()
+    LABELS = {
+        "categoria": "Categoria",
+        "nome": "Nome",
+        "anexo": "Anexos",
+        "descricao": "Descrição",
+        "atualizacao": "Atualização",
+        "versao": "Versão",
+        "aprovacao": "Aprovação",
+        "codigo": "Código",
+        "vigencia": "Vigência",
+        "publicacao_dio": "Publicação DIO",
+        "errata": "ERRATA",
+        "processo": "Processo",
+        "edocs": "e-Docs",
+        "observacao": "OBS",
+        "revogada_dio": "Revogada-DIO",
+    }
+    FORMATS = {}
+    FORMAT_DICTS = {}
+    HEADING_STYLES = {
+        None: {"min-width": "5em"},
+    }
+    DATA_STYLES = {
+        None: {"text-align": "center", "padding": "0px !important"},
+    }
+    LOAD_ALSO = []
+    CREATELINK = DeferResolveUrl("ueci_norma_criar")
+    CREATEWHAT = "Norma"
+    URL_DETAIL = "ueci_norma_detalhe"
+    URL_EDIT = "ueci_norma_editar"
+    URL_DELETE = "ueci_norma_editar"
+    ACTION_TEMPLATE = "uecinormas/ueci_norma_actions.html"
+    OBJECT_MODE = True
+    DEFAULT_ORDER = [[0, "asc"], [1, "asc"]]
+
+    def _can_create(self, roles: list[str] = []) -> bool:
+        return len(ADMINS_DO_MODULO.intersection(roles)) > 0
+
+    def _can_edit(self, roles: list[str] = []) -> bool:
+        return len(ADMINS_DO_MODULO.intersection(roles)) > 0
+
+    def _can_delete(self, roles: list[str] = []) -> bool:
+        return len(ADMINS_DO_MODULO.intersection(roles)) > 0
+
+
+class NormaRView(GenericRecordView):
+    TITLE = "Norma"
+    DECRIPTION = "Detalhes da Norma"
+    MODEL = Norma
+    LABELS = {
+        "categoria": "Categoria",
+        "nome": "Nome",
+        "anexo": "Anexos",
+        "descricao": "Descrição",
+        "atualizacao": "Atualização",
+        "versao": "Versão",
+        "aprovacao": "Aprovação",
+        "codigo": "Código",
+        "vigencia": "Vigência",
+        "publicacao_dio": "Publicação DIO",
+        "errata": "ERRATA",
+        "processo": "Processo",
+        "edocs": "e-Docs",
+        "observacao": "OBS",
+        "revogada_dio": "Revogada-DIO",
+    }
+    SUBPAGES_PRE = "uecinormas/ueci_norma_file.html"
+
+
+@method_decorator(check_roles(*ADMINS_DO_MODULO), name="dispatch")
+class NormaCUDView(GenericEditv2):
+    PARENTMODEL = None
+    PARENTFIELD = ""
+    MODEL = Norma
+    FORM = NormaForm
+    URL_SELF_KEY = "ueci_norma_detalhe"
+    URL_PARENT_KEY = "ueci_norma_listar"
+
+    def _perform_deletion(self, instance: Norma) -> None:
+        mfs = MinioRelatedModelFiles(instance)
+        arq = next(iter(mfs.list_path()), None)
+        if arq is not None:
+            mfs.delete_path(arq)
+            arq = None
+        return super()._perform_deletion(instance)
+
+
+@check_roles(*ADMINS_DO_MODULO)
+def upload_pdf(request: HttpRequest, pk: int) -> HttpResponse:
+    norma = get_object_or_404(Norma, pk=pk)
+    mfs = MinioRelatedModelFiles(norma)
+    arq = next(iter(mfs.list_path()), None)
+    if request.method == "POST":
+        form = UploadPDFForm(request.POST, request.FILES)
+        if arq is not None:
+            mfs.delete_path(arq)
+            arq = None
+        if form.is_valid():
+            file = form.cleaned_data["pdf"]
+            if file is not None:
+                mfs.write_uploadedfile(file)
+            return redirect("listar_normas")
+    else:
+        form = UploadPDFForm()
+    return render(request, "uecinormas/upload_pdf.html", {"form": form, "norma": norma, "arq": (arq or "").rsplit("/", 1)[-1]})

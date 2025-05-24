@@ -1,0 +1,10 @@
+<div class="mb-3">
+  <a href="{% url 'minio-preview-file' 'uecinormas' 'Norma' instance.pk instance.pdf_name %}" class="btn btn-lg btn-primary">
+    <i class="fa fa-file-pdf"></i>
+    <span>Visualizar</span>
+  </a>
+  <a href="{% url 'minio-download-file' 'uecinormas' 'Norma' instance.pk instance.pdf_name %}" class="btn btn-lg btn-secondary">
+    <i class="fa fa-download"></i>
+    <span>Baixar</span>
+  </a>
+</div>

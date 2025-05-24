@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load main_filters %}
+{% block content %}
+{% has_role "UECI" "Admin" as ueci %}
+
+<div class="container mt-5">
+    <h2>Lista de Normas</h2>
+    {% if ueci %}
+    <a href="{% url 'cadastrar_norma' %}" class="btn btn-primary mb-3" data-bs-toggle="tooltip" title="Cadastrar nova norma">
+        <i class="fas fa-plus"></i> Nova Norma
+    </a>
+    {% endif %}
+
+    <table class="table table-bordered table-striped align-middle">
+        <thead class="table-light text-center">
+            <tr>
+                <th style="max-width: 300px;" class="truncate">Título</th>
+                <th style="max-width: 450px;" class="truncate">Tema</th>
+                <th style="max-width: 90px;" class="truncate">Emitente</th>
+                <th style="max-width: 90px;" class="truncate">Aprovação</th>
+                <th style="max-width: 90px;" class="truncate">Vigência</th>
+                <th><i class="fas fa-file-pdf" title="Arquivo PDF"></i></th>
+                {% if ueci %}
+                <th><i class="fas fa-cog" title="Ações"></i></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for norma in normas %}
+            <tr>
+                <td class="truncate" style="max-width: 300px;" title="{{ norma.titulo }}">{{ norma.titulo }}</td>
+                <td class="truncate" style="max-width: 450px;" title="{{ norma.tema }}">{{ norma.tema }}</td>
+                <td class="truncate" style="max-width: 90px;" title="{{ norma.emitente }}">{{ norma.emitente }}</td>
+                <td class="truncate" style="max-width: 90px;" title="{{ norma.aprovacao }}">{{ norma.aprovacao }}</td>
+                <td class="truncate" style="max-width: 90px;" title="{{ norma.vigencia }}">{{ norma.vigencia }}</td>
+                                <td class="text-center">
+                    {% if norma.pdf %}
+                        <a href="{% url 'minio-preview-file' 'uecinormas' 'Norma' norma.pk norma.pdf_name %}" target="_blank" class="btn btn-sm btn-outline-secondary" data-bs-toggle="tooltip" title="Ver PDF">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    {% else %}
+                        <span class="text-muted">Nenhum</span>
+                    {% endif %}
+                </td>
+                {% if ueci %}
+                <td class="text-center">
+                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+                        <a href="{% url 'editar_norma' norma.id %}" class="btn btn-sm btn-warning" data-bs-toggle="tooltip" title="Editar norma">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="{% url 'excluir_norma' norma.id %}" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Excluir norma">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                        <a href="{% url 'upload_pdf' norma.id %}" class="btn btn-sm btn-info" data-bs-toggle="tooltip" title="Enviar PDF">
+                            <i class="fas fa-upload"></i>
+                        </a>
+                    </div>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

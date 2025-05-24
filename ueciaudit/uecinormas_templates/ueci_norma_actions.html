@@ -1,0 +1,18 @@
+{% if can_edit %}
+<span>
+  <a href="{% url 'ueci_norma_uploadpdf' line.pk %}" class="btn btn-sm btn-secondary" style="width: 1.6rem; height: 1.6rem; display: inline-flex; justify-content: center; align-items: center">
+    <i class="fa fa-upload"></i>
+    <span class="sr-only">Julgar</span>
+  </a>
+</span>
+{% endif %}
+<span>
+  <a
+    href="{% url 'minio-preview-file' 'uecinormas' 'Norma' line.pk line.pdf_name %}"
+    class="btn btn-sm btn-primary"
+    style="width: 1.6rem; height: 1.6rem; display: inline-flex; justify-content: center; align-items: center"
+  >
+    <i class="fa fa-file-pdf"></i>
+    <span class="sr-only">PDF</span>
+  </a>
+</span>

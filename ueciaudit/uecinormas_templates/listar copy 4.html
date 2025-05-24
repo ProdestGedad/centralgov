@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Lista de Normas</h2>
+    <a href="{% url 'cadastrar_norma' %}" class="btn btn-primary mb-3">Cadastrar Nova Norma</a>
+    <table class="table table-bordered table-striped align-middle">
+        <thead class="table-light">
+            <tr>
+                <th style="min-width: 300px;">Título</th>
+                <th style="min-width: 200px;">Tema</th>
+                <th style="min-width: 200px;">Emitente</th>
+                <th>Sistema</th>
+                <th>Código</th>
+                <th>Versão</th>
+                <th>Aprovação</th>
+                <th>Instrução</th>
+                <th>Vigência</th>
+                <th>PDF</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for norma in normas %}
+            <tr>
+                <td>{{ norma.titulo }}</td>
+                <td>{{ norma.tema }}</td>
+                <td>{{ norma.emitente }}</td>
+                <td>{{ norma.sistema }}</td>
+                <td>{{ norma.codigo }}</td>
+                <td>{{ norma.versao }}</td>
+                <td>{{ norma.aprovacao }}</td>
+                <td>{{ norma.instrucao_servico }}</td>
+                <td>{{ norma.vigencia|date:"d/m/Y" }}</td>
+                <td>
+                    {% if norma.pdf %}
+                        <a href="{{ norma.pdf.url }}" target="_blank" class="btn btn-sm btn-outline-secondary mb-2">Ver</a>
+                    {% endif %}
+                    <form method="post" action="{% url 'upload_pdf_norma' norma.pk %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="file" name="pdf" accept="application/pdf" class="form-control form-control-sm mb-1" required>
+                        <button type="submit" class="btn btn-sm btn-success w-100">Upload</button>
+                    </form>
+                </td>
+                <td>
+                    <div class="d-flex flex-column gap-1">
+                        <a href="{% url 'editar_norma' norma.id %}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{% url 'excluir_norma' norma.id %}" class="btn btn-sm btn-danger">Excluir</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

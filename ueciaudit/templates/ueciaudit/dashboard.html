@@ -1,0 +1,56 @@
+{% extends "base_page.html" %}
+{% block pagecontent %}
+
+<div class="row">
+  <div class="col-md-4 mb-3">
+    <a href="{% url 'ueciaudit:norma_list' %}" class="card h-100 text-decoration-none">
+      <div class="card-body text-center">
+        <i class="fas fa-book-open fa-2x text-primary mb-2"></i>
+        <h5 class="card-title">Normas</h5>
+        <p class="card-text">{{ ultimas_normas|length }} cadastradas</p>
+      </div>
+    </a>
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <a href="{% url 'ueciaudit:procedimento_list' %}" class="card h-100 text-decoration-none">
+      <div class="card-body text-center">
+        <i class="fas fa-tasks fa-2x text-success mb-2"></i>
+        <h5 class="card-title">Procedimentos</h5>
+        <p class="card-text">{{ ultimos_procedimentos|length }} cadastrados</p>
+      </div>
+    </a>
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <a href="{% url 'ueciaudit:auditoria_list' %}" class="card h-100 text-decoration-none">
+      <div class="card-body text-center">
+        <i class="fas fa-clipboard-list fa-2x text-warning mb-2"></i>
+        <h5 class="card-title">Auditorias</h5>
+        <p class="card-text">{{ ultimas_auditorias|length }} agendadas</p>
+      </div>
+    </a>
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <a href="{% url 'ueciaudit:checklistitem_list' %}" class="card h-100 text-decoration-none">
+      <div class="card-body text-center">
+        <i class="fas fa-check-square fa-2x text-info mb-2"></i>
+        <h5 class="card-title">Checklist</h5>
+        <p class="card-text">{{ ultimos_itens|length }} itens</p>
+      </div>
+    </a>
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <a href="{% url 'ueciaudit:naoconformidade_list' %}" class="card h-100 text-decoration-none">
+      <div class="card-body text-center">
+        <i class="fas fa-exclamation-triangle fa-2x text-danger mb-2"></i>
+        <h5 class="card-title">Não-Conformidades</h5>
+        <p class="card-text">{{ ultimas_ncs|length }} registradas</p>
+      </div>
+    </a>
+  </div>
+</div>
+{% endblock %}
+

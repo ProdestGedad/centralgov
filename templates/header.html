@@ -1,0 +1,94 @@
+{% load static %}
+<header>
+  <section class="es-header container-fluid">
+    <div class="es-header-container">
+      <div class="row es-header-row">
+        <div class="col m-0 p-0">
+          <div class="sistema-area">
+            <img alt="image" src="{% static 'png/logo_portal.svg' %}" />
+            <h1 style="color: var(--es-color-light-1)">{{ global.config.nome_sistema }}</h1>
+          </div>
+        </div>
+        <!-- START SEARCHBAR -->
+        {% include 'header_searchbar.html' %}
+        <!-- END SEARCHBAR -->
+        <div class="col m-0 p-0">
+          <div class="logo-prodest">
+            <a href="https://prodest.es.gov.br/" title="Acessar site do PRODEST" target="_blank" rel="noopener">
+              <img alt="image" src="https://cdn.es.gov.br/images/logo/prodest/logomarca/left-white/Logomarca_Prodest_240.png" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <nav class="es-navbar navbar navbar-expand-sm navbar-dark" style="z-index: 0">
+    <div class="es-container">
+      <a class="navbar-brand d-sm-block d-md-none d-flex" href="">
+        <img alt="image" src="{% static 'png/logo_portal.svg' %}" />
+        <h3 style="color: var(--es-color-light-1); font-size: medium">{{ global.config.nome_sistema }}</h3>
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarServicos"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse" id="navbarServicos" style="z-index: 4">
+        <div class="d-flex justify-content-sm-start justify-content-md-between flex-md-row flex-sm-column collapse navbar-collapse" id="navbarServicos">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'ueciaudit:dashboard' %}">
+                <i class="fas fa-home" aria-hidden="true"></i>
+                <span class="ps-1">Início</span>
+              </a>
+            </li>
+            {% if global.impersonated is None %}
+            <li class="nav-item">
+              <a class="nav-link text-light">
+                <i class="fas fa-user" aria-hidden="true"></i>
+                <span class="ps-1">{{ global.nome_cidadao }}</span>
+              </a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link text-light">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+                <span class="ps-1">{{ global.impersonated.nome }}</span>
+              </a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{% firstof back_url 'javascript:history.go(-1)' %}">
+                <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                <span class="ps-1">Voltar</span>
+              </a>
+            </li>
+            {% if global.impersonated is None %}
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{% url 'logout_view' %}">
+                <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                <span class="ps-1">Sair</span>
+              </a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{% url 'CRITICAL_sys_admin_unimpersonate' %}">
+                <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                <span class="ps-1">Despersonificar</span>
+              </a>
+            </li>
+            {% endif %}{% include 'header_notifications.html' %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- Breadcrumbs Section -->
+  {% include 'header_breadcrumbs.html' %}
+</header>

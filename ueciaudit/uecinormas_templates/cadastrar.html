@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container mt-5">
+    <h2>{% if editar %}Editar Norma{% else %}Cadastrar Nova Norma{% endif %}</h2>
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <div class="row">
+
+           {% for field in form %}
+    {% if field.name != 'pdf' %}
+    <div class="mb-3 row">
+        <label for="{{ field.id_for_label }}" class="col-sm-2 col-form-label text-end">{{ field.label }}:</label>
+        <div class="col-sm-6">
+            {{ field|add_class:"form-control"|attr:"style:width: 100%;" }}
+            {% if field.help_text %}
+            <div class="form-text">{{ field.help_text }}</div>
+            {% endif %}
+            {% if field.errors %}
+            <div class="text-danger small">{{ field.errors }}</div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+{% endfor %}
+
+
+        </div>
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <a href="{% if back_url %}{{ back_url }}{% else %}javascript:history.go(-1){% endif %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

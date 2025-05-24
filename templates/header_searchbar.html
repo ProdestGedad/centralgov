@@ -1,0 +1,84 @@
+<div class="col m-0 p-0">
+  <div class="es-container caixa-busca-container" id="cxbc">
+    <div class="row">
+      <div class="col es-main-title-2"></div>
+    </div>
+    <div class="row" id="area-busca">
+      <div class="col mt-2 row-busca">
+        <div class="input-group servico-search-bar">
+          <input id="searchInput" class="form-control text-center" type="text" placeholder="Pesquisar" autocomplete="off" />
+        </div>
+        <div class="dropdown-menu busca-flutuante" id="dropdownMenu" style="max-height: 300px; overflow-y: auto">
+          <br />
+          <br />
+          {% for categoria in portal_tree %}
+          <div class="category-item">
+            <div class="category-break">
+              <br />
+            </div>
+            <a class="dropdown-item" href="{% if categoria.tipo == 'link' %}{{ categoria.link }}{% else %}{% url 'categoria' categoria.id %}{% endif %}" data-value="{{ categoria.nome }}"
+              >{{ categoria.nome }}</a
+            >
+            {% for controle in categoria.controles %}
+            <a class="dropdown-item" href="{% if controle.tipo == 'link' %}{{ controle.link }}{% else %}{% url 'controle' controle.id %}{% endif %}" data-value="{{ controle.nome }}"
+              >&nbsp;&nbsp;&nbsp;&nbsp;{{ controle.nome }}</a
+            >
+            {% for evento in controle.eventos %}
+            <a class="dropdown-item" href="{% if evento.tipo == 'link' %}{{ evento.link }}{% else %}{% url 'evento' evento.id %}{% endif %}" data-value="{{ evento.nome }}"
+              >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ evento.nome }}</a
+            >
+            {% for pagina in evento.paginas %}
+            <a class="dropdown-item" href="{% if pagina.tipo == 'link' %}{{ pagina.link }}{% else %}{% url 'pagina' pagina.id %}{% endif %}" data-value="{{ pagina.nome }}"
+              >{% for x in ''|center:pagina.nivel %}&nbsp;&nbsp;&nbsp;&nbsp;{% endfor %}{{ pagina.nome }}</a
+            >
+            {% endfor %} {% endfor %} {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // Function to remove accents from a string
+  function removeAccents(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+  $(document).ready(function () {
+    $("#searchInput").on("input", function () {
+      var inputValue = removeAccents($(this).val().toLowerCase());
+      $("#dropdownMenu .category-item").each(function () {
+        var categoryVisible = false;
+        $(this)
+          .find(".dropdown-item")
+          .each(function () {
+            var itemText = removeAccents($(this).text().toLowerCase());
+            var match = itemText.indexOf(inputValue) > -1;
+            $(this).toggle(match);
+            if (match) {
+              categoryVisible = true;
+            }
+          });
+        // Show/hide the <br> and category item based on search result
+        $(this).find(".category-break").toggle(categoryVisible);
+        $(this).find(".categoria-item").toggle(categoryVisible);
+      });
+    });
+    $("#buscar-btn").on("click", function () {
+      var firstVisibleItem = $("#dropdownMenu .dropdown-item:visible").first();
+      if (firstVisibleItem.length) {
+        window.location.href = firstVisibleItem.attr("href");
+      }
+    });
+    // Automatically show the dropdown when the input is focused
+    $("#searchInput").on("focus", function () {
+      $("#dropdownMenu").show();
+    });
+    // Hide the dropdown when clicking outside of it
+    $(document).on("click", function (e) {
+      if (!$(e.target).closest(".row-busca").length) {
+        $("#dropdownMenu").hide();
+      }
+    });
+  });
+</script>

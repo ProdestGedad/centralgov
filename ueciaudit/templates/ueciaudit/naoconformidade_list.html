@@ -1,0 +1,30 @@
+{% extends "base_page.html" %}
+{% block pagecontent %}
+<h1 class="text-2xl font-bold mb-4">Não-Conformidades</h1>
+<a href="{% url 'ueciaudit:naoconformidade_create' %}" class="bg-blue-500 text-white px-3 py-1 rounded">Nova NC</a>
+<table class="min-w-full bg-white mt-4 shadow">
+  <thead>
+    <tr>
+      <th class="p-2">Item</th>
+      <th class="p-2">Severidade</th>
+      <th class="p-2">Corrigido</th>
+      <th class="p-2">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for nc in ncs %}
+    <tr class="border-t">
+      <td class="p-2">{{ nc.item.pk }}</td>
+      <td class="p-2">{{ nc.get_severidade_display }}</td>
+      <td class="p-2">{{ nc.corrigido|yesno:"Sim,Não" }}</td>
+      <td class="p-2">
+        <a href="{% url 'ueciaudit:naoconformidade_update' nc.pk %}" class="text-blue-600">Editar</a> |
+        <a href="{% url 'ueciaudit:naoconformidade_delete' nc.pk %}" class="text-red-600">Excluir</a>
+      </td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="4" class="p-2">Nenhuma não-conformidade registrada.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

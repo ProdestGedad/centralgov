@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>UECIAudit</title>
+  <!-- Tailwind -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+  <nav class="bg-white p-4 shadow mb-6 flex space-x-4">
+    <a href="{% url 'ueciaudit:norma_list' %}" class="flex items-center space-x-1 text-gray-700 hover:text-blue-600">
+      <i class="fas fa-book-open"></i><span>Normas</span>
+    </a>
+    <a href="{% url 'ueciaudit:procedimento_list' %}" class="flex items-center space-x-1 text-gray-700 hover:text-blue-600">
+      <i class="fas fa-tasks"></i><span>Procedimentos</span>
+    </a>
+    <a href="{% url 'ueciaudit:auditoria_list' %}" class="flex items-center space-x-1 text-gray-700 hover:text-blue-600">
+      <i class="fas fa-clipboard-list"></i><span>Auditorias</span>
+    </a>
+    <a href="{% url 'ueciaudit:checklistitem_list' %}" class="flex items-center space-x-1 text-gray-700 hover:text-blue-600">
+      <i class="fas fa-check-square"></i><span>Checklist</span>
+    </a>
+    <a href="{% url 'ueciaudit:naoconformidade_list' %}" class="flex items-center space-x-1 text-gray-700 hover:text-blue-600">
+      <i class="fas fa-exclamation-triangle"></i><span>Não-Conformidades</span>
+    </a>
+  </nav>
+  <div class="container mx-auto px-4">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

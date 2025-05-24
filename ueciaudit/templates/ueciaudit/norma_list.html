@@ -1,0 +1,30 @@
+{% extends "base_page.html" %}
+{% block pagecontent %}
+<h1 class="text-2xl font-bold mb-4">Normas</h1>
+<a href="{% url 'ueciaudit:norma_create' %}" class="bg-blue-500 text-white px-3 py-1 rounded">Nova Norma</a>
+<table class="min-w-full bg-white mt-4 shadow">
+  <thead>
+    <tr>
+      <th class="p-2">Título</th>
+      <th class="p-2">Versão</th>
+      <th class="p-2">Vigência</th>
+      <th class="p-2">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for n in normas %}
+    <tr class="border-t">
+      <td class="p-2">{{ n.titulo }}</td>
+      <td class="p-2">{{ n.versao }}</td>
+      <td class="p-2">{{ n.data_vigencia }}</td>
+      <td class="p-2">
+        <a href="{% url 'ueciaudit:norma_update' n.pk %}" class="text-blue-600">Editar</a> |
+        <a href="{% url 'ueciaudit:norma_delete' n.pk %}" class="text-red-600">Excluir</a>
+      </td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="4" class="p-2">Nenhuma norma cadastrada.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load main_filters %}
+{% block content %}
+{% has_role "UECI" "Admin" as ueci %}
+
+<div class="container mt-5">
+    <h2>Lista de Normas</h2>
+
+    {% if ueci %}
+        <a href="{% url 'cadastrar_norma' %}" class="btn btn-primary mb-3">Cadastrar Nova Norma</a>
+    {% endif %}
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-light">
+            <tr>
+                <th>Título</th>
+                <th>Tema</th>
+                <th>Emitente</th>
+                <th>Sistema</th>
+                <th>Código</th>
+                <th>Versão</th>
+                <th>Aprovação</th>
+                <th>Instrução</th>
+                <th>Vigência</th>
+                <th>PDF</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for norma in normas %}
+            <tr>
+                <td>{{ norma.titulo }}</td>
+                <td>{{ norma.tema }}</td>
+                <td>{{ norma.emitente }}</td>
+                <td>{{ norma.sistema }}</td>
+                <td>{{ norma.codigo }}</td>
+                <td>{{ norma.versao }}</td>
+                <td>{{ norma.aprovacao }}</td>
+                <td>{{ norma.instrucao_servico }}</td>
+                <td>{{ norma.vigencia|date:"d/m/Y" }}</td>
+                <td>
+                    {% if norma.pdf %}
+                        <a href="{{ norma.pdf.url }}" target="_blank" class="btn btn-sm btn-outline-secondary">Ver PDF</a>
+                    {% else %}
+                        <span class="text-muted">Nenhum</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'editar_norma' norma.id %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'excluir_norma' norma.id %}" class="btn btn-sm btn-danger">Excluir</a>
+                    <form action="{% url 'upload_pdf' norma.id %}" method="post" enctype="multipart/form-data" style="display:inline;">
+                        {% csrf_token %}
+                        <label class="btn btn-sm btn-info mb-0">
+                            PDF <input type="file" name="pdf" onchange="this.form.submit()" hidden>
+                        </label>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base_page.html' %}{% block pagecontent %}
+<div>
+  <h2>Upload de PDF para: {{ norma.titulo }}</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+      {{ arq|default:'' }}<br />
+      {{ form.pdf }} {% if form.pdf.errors %}
+      <div class="text-danger">{{ form.pdf.errors }}</div>
+      {% endif %}
+    </div>
+    <a href="{% url 'ueci_norma_listar' %}" class="btn btn-secondary">
+      <i class="fa fa-arrow-left"></i>
+      Cancelar
+    </a>
+    <button type="submit" class="btn btn-success">
+      <i class="fa fa-check"></i>
+      Salvar
+    </button>
+  </form>
+</div>
+{% endblock %}

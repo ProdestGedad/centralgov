@@ -1,0 +1,23 @@
+<nav aria-label="breadcrumb" class="bg-light py-2">
+  <div class="es-container">
+    <ol class="breadcrumb mb-0">
+      {% for breadcrumb in breadcrumbs %}{% if forloop.last %}
+      <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb.0|safe }}</li>
+      {% else %}
+      <li class="breadcrumb-item">
+        {% if breadcrumb|length > 4 %}
+        <a href="{% url breadcrumb.1 breadcrumb.2 breadcrumb.3 breadcrumb.4 %}">{{ breadcrumb.0 }}</a>
+        {% elif breadcrumb|length > 3 %}
+        <a href="{% url breadcrumb.1 breadcrumb.2 breadcrumb.3 %}">{{ breadcrumb.0 }}</a>
+        {% elif breadcrumb|length > 2 %}
+        <a href="{% url breadcrumb.1 breadcrumb.2 %}">{{ breadcrumb.0 }}</a>
+        {% elif breadcrumb|length > 1 %}
+        <a href="{% url breadcrumb.1 %}">{{ breadcrumb.0 }}</a>
+        {% else %}
+        <a>{{ breadcrumb.0 }}</a>
+        {% endif %}
+      </li>
+      {% endif %}{% endfor %}
+    </ol>
+  </div>
+</nav>

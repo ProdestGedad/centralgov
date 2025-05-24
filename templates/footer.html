@@ -1,0 +1,31 @@
+{% load static %}
+<footer class="es-footer container-fluid">
+  <div class="es-container">
+    <div class="row es-footer-row">
+      <div class="es-footer-col col-12 col-lg-4">
+        <div class="logo-goves">
+          <a href="https://es.gov.br/" target="_blank" rel="noopener" title="Acessar portal do Governo do Estado do Espírito Santo.">
+            <img alt="image" src="https://cdn.es.gov.br/images/logo/governo/brasao/left-white/Brasao_Governo_240.png" />
+          </a>
+        </div>
+      </div>
+
+      <div class="es-footer-col col-12 col-lg-4">
+        <div class="sistema-area">
+          <h4 style="color: var(--es-color-light-1)">{{ global.config.footer_1 }}</h4>
+        </div>
+        <div class="orgao-descricao">{{ global.config.footer_2 }}</div>
+        <div class="orgao-descricao">{{ global.config.footer_3 }}</div>
+        <div class="orgao-descricao">v{{ global.version }}</div>
+      </div>
+      
+      <div class="es-footer-col col-12 col-lg-4">
+        <div class="carimbo">
+          <a href="https://prodest.es.gov.br/" title="Acessar site do PRODEST" target="_blank" rel="noopener">
+            <img alt="image" src="{% static 'png/carimbo_gedad_asgov_1.png' %}" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
