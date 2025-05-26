@@ -97,8 +97,8 @@ class ProcedimentoCreateView(PageMixin, generic.CreateView):
     form_class    = ProcedimentoForm
     template_name = 'ueciaudit/procedimento_form.html'
     success_url   = reverse_lazy('ueciaudit:procedimento_list')
-    page_title       = 'Novo Procedimento'
-    page_description = 'Cadastre um novo procedimento'
+    page_title       = ''
+    page_description = ''
     breadcrumb       = [
         ('Início', 'ueciaudit:dashboard'),
         ('Procedimentos', 'ueciaudit:procedimento_list'),
@@ -141,8 +141,8 @@ class AuditoriaCreateView(PageMixin, generic.CreateView):
     form_class    = AuditoriaForm
     template_name = 'ueciaudit/auditoria_form.html'
     success_url   = reverse_lazy('ueciaudit:auditoria_list')
-    page_title       = 'Nova Auditoria'
-    page_description = 'Agende uma nova auditoria'
+    page_title       = ''
+    page_description = ''
     breadcrumb       = [
         ('Início', 'ueciaudit:dashboard'),
         ('Auditorias', 'ueciaudit:auditoria_list'),
@@ -185,8 +185,8 @@ class ChecklistItemCreateView(PageMixin, generic.CreateView):
     form_class    = ChecklistItemForm
     template_name = 'ueciaudit/checklistitem_form.html'
     success_url   = reverse_lazy('ueciaudit:checklistitem_list')
-    page_title       = 'Novo Item de Checklist'
-    page_description = 'Adicione um novo item ao checklist'
+    page_title       = ''
+    page_description = ''
     breadcrumb       = [
         ('Início', 'ueciaudit:dashboard'),
         ('Itens de Checklist', 'ueciaudit:checklistitem_list'),
@@ -229,8 +229,8 @@ class NaoConformidadeCreateView(PageMixin, generic.CreateView):
     form_class    = NaoConformidadeForm
     template_name = 'ueciaudit/naoconformidade_form.html'
     success_url   = reverse_lazy('ueciaudit:naoconformidade_list')
-    page_title       = 'Nova Não-Conformidade'
-    page_description = 'Registre uma nova não-conformidade'
+    page_title       = ''
+    page_description = ''
     breadcrumb       = [
         ('Início', 'ueciaudit:dashboard'),
         ('Não-Conformidades', 'ueciaudit:naoconformidade_list'),
