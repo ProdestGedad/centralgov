@@ -1,6 +1,5 @@
 from django.urls import reverse_lazy
 from django.views import generic
-from django.views.generic import TemplateView
 from .models import (
     Norma, Procedimento, Auditoria,
     ChecklistItem, NaoConformidade
@@ -23,21 +22,6 @@ class PageMixin:
         crumbs = list(self.breadcrumb)
         crumbs.append((self.page_title,))
         ctx['breadcrumbs'] = crumbs
-        return ctx
-
-class ManualAuditoriaView(TemplateView):
-    template_name = 'ueciaudit/manual_auditoria.html'
-    page_title    = 'Manual de Auditoria'
-    page_description = 'Guia completo das etapas de auditoria'
-    breadcrumb    = [
-        ('Início', 'ueciaudit:dashboard'),
-        ('Manual', 'ueciaudit:manual'),
-    ]
-
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        # Se quiser, pode injetar o texto completo ou um sumário:
-        # ctx['manual_text'] = open('path/to/manual.md').read()
         return ctx
 
 class DashboardView(PageMixin, generic.TemplateView):

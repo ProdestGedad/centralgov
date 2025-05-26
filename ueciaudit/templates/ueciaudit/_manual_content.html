@@ -1,0 +1,124 @@
+{# ueciaudit/templates/ueciaudit/_manual_content.html #}
+<div class="space-y-8">
+
+  <!-- 1. Visão Geral do Fluxo -->
+  <section>
+    <h2 class="text-xl font-bold mb-2">1. Visão Geral do Fluxo</h2>
+    <p class="text-gray-700 mb-4">
+      Todo o processo de auditoria na aplicação segue estas etapas interligadas:
+    </p>
+    <ol class="list-decimal list-inside text-gray-700">
+      <li><strong>Normas</strong>: definição e versionamento das políticas.</li>
+      <li><strong>Procedimentos</strong>: detalhamento das atividades que suportam cada norma.</li>
+      <li><strong>Auditorias</strong>: agendamento e execução da verificação.</li>
+      <li><strong>Check-Lists</strong>: itens a serem avaliados em cada auditoria.</li>
+      <li><strong>Não-Conformidades</strong>: registro de desvios e acompanhamento de correções.</li>
+    </ol>
+  </section>
+
+  <!-- 2. Normas -->
+  <section>
+    <h2 class="text-xl font-bold mb-2">2. Normas</h2>
+    <p class="text-gray-700 mb-2"><strong>Objetivo:</strong> Centralizar todas as normas internas em um repositório versionado.</p>
+    <h3 class="text-lg font-semibold mb-1">Passo a Passo</h3>
+    <ul class="list-disc list-inside text-gray-700 space-y-1">
+      <li><strong>Cadastrar Nova Norma:</strong>
+        <ul class="list-disc list-inside ml-5 text-gray-700">
+          <li>Acesse <code>Normas → Nova Norma</code>.</li>
+          <li>Preencha Título, Versão, Descrição e Data de Vigência.</li>
+          <li>Clique em <em>Salvar</em>.</li>
+        </ul>
+      </li>
+      <li><strong>Editar / Atualizar:</strong> use o ícone ✎ na linha da norma e salve alterações.</li>
+      <li><strong>Excluir:</strong> clique no ícone de lixeira e confirme.</li>
+    </ul>
+    <p class="text-gray-700"><strong>Dica:</strong> incremente sempre a versão e mantenha o histórico claro.</p>
+  </section>
+
+  <!-- 3. Procedimentos -->
+  <section>
+    <h2 class="text-xl font-bold mb-2">3. Procedimentos</h2>
+    <p class="text-gray-700 mb-2"><strong>Objetivo:</strong> Documentar o “como fazer” para atender cada norma.</p>
+    <h3 class="text-lg font-semibold mb-1">Passo a Passo</h3>
+    <ul class="list-disc list-inside text-gray-700 space-y-1">
+      <li><strong>Cadastrar Novo Procedimento:</strong>
+        <ul class="list-disc list-inside ml-5 text-gray-700">
+          <li>Acesse <code>Procedimentos → Novo Procedimento</code>.</li>
+          <li>Selecione a Norma associada, informe Título, Descrição e anexe Documentos.</li>
+          <li>Salve o procedimento.</li>
+        </ul>
+      </li>
+      <li><strong>Editar / Atualizar:</strong> clique em ✎ na listagem.</li>
+      <li><strong>Excluir:</strong> clique na lixeira e confirme.</li>
+    </ul>
+    <p class="text-gray-700"><strong>Dica:</strong> use linguagem clara e mantenha os anexos atualizados.</p>
+  </section>
+
+  <!-- 4. Auditorias -->
+  <section>
+    <h2 class="text-xl font-bold mb-2">4. Auditorias</h2>
+    <p class="text-gray-700 mb-2"><strong>Objetivo:</strong> Planejar e registrar as sessões de auditoria.</p>
+    <h3 class="text-lg font-semibold mb-1">Passo a Passo</h3>
+    <ul class="list-disc list-inside text-gray-700 space-y-1">
+      <li><strong>Agendar Auditoria:</strong>
+        <ul class="list-disc list-inside ml-5 text-gray-700">
+          <li>Acesse <code>Auditorias → Nova Auditoria</code>.</li>
+          <li>Selecione o Procedimento, defina Data, Status e Equipe.</li>
+          <li>Salve o agendamento.</li>
+        </ul>
+      </li>
+      <li><strong>Executar Auditoria:</strong> altere Status para “Em Andamento” e preencha o Check-List.</li>
+      <li><strong>Concluir Auditoria:</strong> marque Status como “Concluída” e registre observações finais.</li>
+    </ul>
+    <p class="text-gray-700"><strong>Dica:</strong> anexe evidências (fotos, documentos) diretamente na auditoria.</p>
+  </section>
+
+  <!-- 5. Check-Lists -->
+  <section>
+    <h2 class="text-xl font-bold mb-2">5. Check-Lists</h2>
+    <p class="text-gray-700 mb-2"><strong>Objetivo:</strong> Garantir cobertura completa dos itens a verificar.</p>
+    <h3 class="text-lg font-semibold mb-1">Passo a Passo</h3>
+    <ul class="list-disc list-inside text-gray-700 space-y-1">
+      <li><strong>Criar Itens de Check-List:</strong>
+        <ul class="list-disc list-inside ml-5 text-gray-700">
+          <li>Acesse <code>Check-Lists → Novo Item</code>.</li>
+          <li>Associe à Auditoria, defina Descrição e Obrigatoriedade.</li>
+          <li>Salve o item.</li>
+        </ul>
+      </li>
+      <li><strong>Preencher Resultado:</strong> selecione OK/Não OK, anexe evidência e comente.</li>
+    </ul>
+    <p class="text-gray-700"><strong>Dica:</strong> seja objetivo e use imagens como prova.</p>
+  </section>
+
+  <!-- 6. Não-Conformidades -->
+  <section>
+    <h2 class="text-xl font-bold mb-2">6. Não-Conformidades</h2>
+    <p class="text-gray-700 mb-2"><strong>Objetivo:</strong> Registrar desvios e acompanhar correções.</p>
+    <h3 class="text-lg font-semibold mb-1">Passo a Passo</h3>
+    <ul class="list-disc list-inside text-gray-700 space-y-1">
+      <li><strong>Registrar NC:</strong>
+        <ul class="list-disc list-inside ml-5 text-gray-700">
+          <li>Acesse <code>Não-Conformidades → Nova NC</code>.</li>
+          <li>Associe ao Item, defina Severidade e Descrição do desvio.</li>
+          <li>Marque Corrigido (Sim/Não) e informe Data e Responsável.</li>
+          <li>Salve.</li>
+        </ul>
+      </li>
+      <li><strong>Acompanhar Ação:</strong> atualize Corrigido e Data quando concluído.</li>
+    </ul>
+    <p class="text-gray-700"><strong>Dica:</strong> atribua severidade consistente e documente cada passo.</p>
+  </section>
+
+  <!-- 7. Dicas Finais -->
+  <section>
+    <h2 class="text-xl font-bold mb-2">7. Dicas Finais</h2>
+    <ul class="list-disc list-inside text-gray-700 space-y-1">
+      <li>Use o <strong>Dashboard</strong> para ter visão rápida de tudo.</li>
+      <li>Agende auditorias periódicas (trimestrais/mensais).</li>
+      <li>Exportar relatórios em CSV ou PDF para stakeholders.</li>
+      <li>Realizar workshops com a equipe usando este manual.</li>
+    </ul>
+  </section>
+
+</div>
